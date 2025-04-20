@@ -1,0 +1,21 @@
+
+{
+  "client_low_power": {
+    "cpu": "ARM Cortex-A53",
+    "memory": "512MB",
+    "network": "LTE",
+    "availability": 0.6
+  },
+  "client_high_power": {
+    "cpu": "Intel i5",
+    "memory": "16GB",
+    "network": "Ethernet",
+    "availability": 0.95
+  },
+  "edge_server": {
+    "cpu": "Intel Xeon",
+    "memory": "64GB",
+    "network": "Gigabit Ethernet",
+    "availability": 0.99
+  }
+}

@@ -1,0 +1,10 @@
+
+# model_params.yaml
+cnn:
+  in_channels: 1
+  num_classes: 10
+rnn:
+  input_dim: 50
+  hidden_dim: 128
+  output_dim: 2
+  n_layers: 1

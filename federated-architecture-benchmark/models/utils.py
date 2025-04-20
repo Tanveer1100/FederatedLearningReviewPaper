@@ -11,5 +11,8 @@ def get_model(model_type, **kwargs):
     elif model_type == "lstm":
         from models.rnn import LSTMClassifier
         return LSTMClassifier(**kwargs)
+    elif model_type == "mlp":
+        from models.mlp import MLP
+        return MLP(**kwargs)
     else:
         raise ValueError(f"Unknown model type: {model_type}")

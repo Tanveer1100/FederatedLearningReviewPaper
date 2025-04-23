@@ -4,6 +4,7 @@ from data.sent140_loader import Sent140Dataset
 from data.shakespeare_loader import ShakespeareDataset
 from data.synthetic_loader import SyntheticDataset
 from data.femnist_loader import FEMNISTDataset
+from data.cifar10_loader import load_partitioned_cifar10
 
 
 def load_partitioned_data(dataset):
@@ -49,7 +50,7 @@ def load_partitioned_data(dataset):
         return client_data, []
         
     elif dataset == "cifar10":
-        raise NotImplementedError("CIFAR10 partitioned loading not defined.")
+        return load_partitioned_cifar10(num_clients=10, alpha=0.5, seed=42)
 
     else:
         raise ValueError(f"Unsupported dataset: {dataset}")

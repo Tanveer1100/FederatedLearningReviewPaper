@@ -1,28 +1,38 @@
 #!/bin/bash
 
-# Architectures to test
+# experiments/run_benchmark.sh
+# Run full federated learning benchmark as described in the paper
+
+# Architectures to benchmark
 architectures=("centralized" "decentralized" "hierarchical")
 
-# Datasets to test (as described in the paper)
+# Datasets to benchmark
 datasets=("FEMNIST" "Sent140" "Shakespeare" "CIFAR10" "Synthetic")
 
-# Optional: Number of clients per round (you can tweak this)
+# Experiment parameters
+rounds=50
 clients_per_round=10
 
-# Optional: Total number of training rounds
-rounds=50
+# Optional: Seed loop (you can comment this out for single-run tests)
+seeds=(42 99)
 
-# Loop through all combinations
-for arch in "${architectures[@]}"; do
-  for dataset in "${datasets[@]}"; do
-    echo "=========================================================="
-    echo "Running Federated Learning Benchmark"
-    echo "Architecture: $arch | Dataset: $dataset"
-    echo "=========================================================="
-    python trainer/train_fl_architectures.py \
-      --dataset "$dataset" \
-      --architecture "$arch" \
-      --clients_per_round "$clients_per_round" \
-      --rounds "$rounds"
+for seed in "${seeds[@]}"; do
+  echo "============== Running Seed: $seed =============="
+
+  for arch in "${architectures[@]}"; do
+    for data in "${datasets[@]}"; do
+      echo "------------------------------------------------------"
+      echo "▶ Running Federated Learning | Dataset: $data | Arch: $arch"
+      echo "------------------------------------------------------"
+
+      python trainer/train_fl_architectures.py \
+        --dataset "$data" \
+        --architecture "$arch" \
+        --rounds "$rounds" \
+        --clients_per_round "$clients_per_round" \
+        --seed "$seed"
+
+      echo ""  # spacing
+    done
   done
 done

@@ -3,7 +3,8 @@ import json
 from data.sent140_loader import Sent140Dataset
 from data.shakespeare_loader import ShakespeareDataset
 from data.synthetic_loader import SyntheticDataset
-# from data.femnist_loader import FEMNISTDataset  # hypothetical
+from data.femnist_loader import FEMNISTDataset
+
 
 def load_partitioned_data(dataset):
     dataset = dataset.lower()
@@ -39,8 +40,14 @@ def load_partitioned_data(dataset):
         return client_data, []
 
     elif dataset == "femnist":
-        raise NotImplementedError("FEMNIST loader not found. Implement or import it.")
-
+        json_path = "data/femnist/train/all_data_niid_0_keep_10_train_9.json"
+        with open(json_path, 'r') as f:
+            raw = json.load(f)
+        users = raw['users']
+        for user in users:
+            client_data[user] = FEMNISTDataset(json_path, user)
+        return client_data, []
+        
     elif dataset == "cifar10":
         raise NotImplementedError("CIFAR10 partitioned loading not defined.")
 

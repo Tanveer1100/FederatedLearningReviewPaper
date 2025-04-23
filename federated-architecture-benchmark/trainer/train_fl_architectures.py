@@ -78,3 +78,22 @@ def train_federated(model_type, architecture, dataset, rounds=50, clients_per_ro
         writer.writerows(compute_log)
 
     return history
+
+if __name__ == "__main__":
+    import argparse
+
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--dataset", type=str, required=True, help="Dataset name")
+    parser.add_argument("--architecture", type=str, required=True, choices=["centralized", "decentralized", "hierarchical"])
+    parser.add_argument("--rounds", type=int, default=50, help="Number of training rounds")
+    parser.add_argument("--clients_per_round", type=int, default=10, help="Clients per communication round")
+
+    args = parser.parse_args()
+
+    train_federated(
+        model_type="cnn",  # You can make this configurable too
+        architecture=args.architecture,
+        dataset=args.dataset,
+        rounds=args.rounds,
+        clients_per_round=args.clients_per_round
+    )
